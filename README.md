@@ -35,3 +35,13 @@ The following table has the protothread macro extensions and functions
 | pt_queue_peek(q) | |
 | pt_queue_pop(q) | |
 | pt_queue_reset(q) | |
+
+
+The following table has the protothread macro platform specific extensions 
+They are located at pt_ex_platformxx.h
+
+| Platform Specific Functions  | Description   |
+|-------------- | -------------- |
+| PT_GET_TIME_usec() | Returns the current microsecond count on the system tick clock. Overflows in about an hour for 32 bits timer read. |
+| PT_YIELD_usec(delay_time) | 	Causes the current thread to yield (stop executing) for the delay_time in microseconds. The time is derived from the core timer. Note that this is a non-blocking delay, not an interval timer. Overflows in about an hour for 32 bits timer read. |
+| PT_INTERVAL_INIT()<br>PT_YIELD_INTERVAL(interval_time) | The yield interval macro attempts to make periodic execution of the thread. The interval_time is in microseconds. The time is derived from the core timer. Note that this is a non-blocking interval timer. Overflows in about an hour for 32 bits timer read. The INIT macro must be called in the scheduled thread before the while(1) loop. |
