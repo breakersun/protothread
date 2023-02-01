@@ -8,14 +8,14 @@
 //=== additions for stm32 =======================================
 //=====================================================================
 // macro to return system time
-#define PT_GET_TIME_usec() (HAL_GetTick())
+#define PT_GET_TIME_msec() (HAL_GetTick())
 
 // macro to make a thread execution pause in usec
 // max time of about one hour
-#define PT_YIELD_usec(delay_time)  \
+#define PT_YIELD_msec(delay_time)  \
     do { static unsigned int time_thread ;\
-    time_thread = PT_GET_TIME_usec() + (unsigned int)delay_time ; \
-    PT_YIELD_UNTIL(pt, (PT_GET_TIME_usec() >= time_thread)); \
+    time_thread = PT_GET_TIME_msec() + (unsigned int)delay_time ; \
+    PT_YIELD_UNTIL(pt, (PT_GET_TIME_msec() >= time_thread)); \
     } while(0);
 
 // macros for interval yield
@@ -23,8 +23,8 @@
 #define PT_INTERVAL_INIT() static unsigned int pt_interval_marker
 #define PT_YIELD_INTERVAL(interval_time)  \
     do { \
-    PT_YIELD_UNTIL(pt, (PT_GET_TIME_usec() >= pt_interval_marker)); \
-    pt_interval_marker = PT_GET_TIME_usec() + (unsigned int)interval_time; \
+    PT_YIELD_UNTIL(pt, (PT_GET_TIME_msec() >= pt_interval_marker)); \
+    pt_interval_marker = PT_GET_TIME_msec() + (unsigned int)interval_time; \
     } while(0);
 
 #endif
